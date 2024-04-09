@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="GoFitMobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:GoFitMobile"
+    Shell.FlyoutBehavior="Disabled"
+    Title="GoFit"
+    xmlns:page="clr-namespace:GoFitMobile.Pages">
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Home">
+            <ShellContent ContentTemplate="{DataTemplate page:HomePage}" />
+        </Tab>
+        <Tab Title="Workout Plans">
+            <ShellContent ContentTemplate="{DataTemplate page:WorkoutPlansPage}" />
+        </Tab>
+    </FlyoutItem>
+    
+    <!--<ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />-->
+
+</Shell>

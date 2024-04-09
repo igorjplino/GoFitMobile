@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoFitMobile", "GoFitMobile\GoFitMobile.csproj", "{DBBDE79C-33A8-4E49-A657-664D9A94FD5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		ANDROID|Any CPU = ANDROID|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBBDE79C-33A8-4E49-A657-664D9A94FD5D}.ANDROID|Any CPU.ActiveCfg = ANDROID|Any CPU
+		{DBBDE79C-33A8-4E49-A657-664D9A94FD5D}.ANDROID|Any CPU.Build.0 = ANDROID|Any CPU
+		{DBBDE79C-33A8-4E49-A657-664D9A94FD5D}.ANDROID|Any CPU.Deploy.0 = ANDROID|Any CPU
+		{DBBDE79C-33A8-4E49-A657-664D9A94FD5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBBDE79C-33A8-4E49-A657-664D9A94FD5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBBDE79C-33A8-4E49-A657-664D9A94FD5D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DBBDE79C-33A8-4E49-A657-664D9A94FD5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBBDE79C-33A8-4E49-A657-664D9A94FD5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBBDE79C-33A8-4E49-A657-664D9A94FD5D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85D7C8DD-79F1-4C6A-8295-7576ED678AA6}
+	EndGlobalSection
+EndGlobal
