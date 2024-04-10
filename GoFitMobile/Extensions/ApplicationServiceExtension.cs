@@ -30,6 +30,9 @@ public static class ApplicationServiceExtension
         services.AddScoped<CreateWorkoutPlanPage>();
         services.AddScoped<CreateWorkoutPlanViewModel>();
 
+        services.AddScoped<CreateWorkoutPage>();
+        services.AddScoped<CreateWorkoutViewModel>();
+
         services.AddScoped<IWorkoutService, WorkoutService>();
 
         return services;

@@ -1,6 +1,7 @@
 ﻿using GoFitMobile.Interfaces;
 using GoFitMobile.Models;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace GoFitMobile.Services;
@@ -8,6 +9,7 @@ public class WorkoutService : BaseService, IWorkoutService
 {
     private readonly AppSettings _appSettings;
     private readonly HttpClient _httpClient;
+    private readonly Uri _uri;
 
     public WorkoutService(
         IOptions<AppSettings> appSettings,
@@ -15,15 +17,27 @@ public class WorkoutService : BaseService, IWorkoutService
     {
         _appSettings = appSettings.Value;
         _httpClient = httpClient;
+        
+        _uri = new Uri(_appSettings.GoFitApiUrl);
+    }
+
+    public async Task CreateNewWorkoutPlanAsync(WorkoutPlan workoutPlan)
+    {
+        try
+        {
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_uri + "WorkoutPlan", workoutPlan);
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
     public async Task<List<WorkoutPlan>> ListWorkoutPlansByAthletIdAsync(Guid id)
     {
         try
         {
-            var uri = new Uri(_appSettings.GoFitApiUrl);
-
-            HttpResponseMessage response = await _httpClient.GetAsync(uri + $"WorkoutPlan/Athlete/{id}");
+            HttpResponseMessage response = await _httpClient.GetAsync(_uri + $"WorkoutPlan/Athlete/{id}");
 
             if (response.IsSuccessStatusCode)
             {

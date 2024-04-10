@@ -2,9 +2,9 @@ using GoFitMobile.ViewModel;
 
 namespace GoFitMobile.Pages.WorkoutPlans;
 
-public partial class CreateWorkoutPlanPage : ContentPage
+public partial class CreateWorkoutPage : ContentPage
 {
-	public CreateWorkoutPlanPage(CreateWorkoutPlanViewModel vm)
+	public CreateWorkoutPage(CreateWorkoutViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;

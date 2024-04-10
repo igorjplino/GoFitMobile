@@ -21,16 +21,16 @@
         ColumnSpacing="10"
         RowSpacing="10">
 
-        <ImageButton
+        <!--<ImageButton
             Grid.Row="0"
             Grid.Column="1"
             HorizontalOptions="End"
             Source="add_icon.png" 
             BackgroundColor="Transparent"
-            Command="{Binding GoToCreateWorkoutPlanCommand}"/>
+            Command="{Binding GoToCreateWorkoutPlanCommand}"/>-->
         
         <CollectionView
-            Grid.Row="1"
+            Grid.Row="0"
             Grid.ColumnSpan="2"
             ItemsSource="{Binding WorkoutPlans}"
             EmptyView="No plans created">
@@ -59,6 +59,11 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <Button Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Text="Add new plan"
+                Command="{Binding GoToCreateWorkoutPlanCommand}" />
     </Grid>
 
     <!--<VerticalStackLayout

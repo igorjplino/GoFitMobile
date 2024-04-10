@@ -23,7 +23,7 @@ public partial class WorkoutPlanViewModel : ObservableObject
     [RelayCommand]
     async Task LoadWorkoutPlans()
     {
-        var id = new Guid("36251202-61be-46c6-b8f9-dc30cc80fc31");
+        var id = new Guid("d2d86d97-3f2c-4eb9-b979-c1937b212412");
 
         WorkoutPlans = new ObservableCollection<WorkoutPlan>(await _workoutService.ListWorkoutPlansByAthletIdAsync(id));
     }

@@ -1,12 +1,59 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:GoFitMobile.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:GoFitMobile.Models"
              x:Class="GoFitMobile.Pages.WorkoutPlans.CreateWorkoutPlanPage"
+             x:DataType="viewmodel:CreateWorkoutPlanViewModel"
              Title="Create new Workout plan">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Appearing"
+            Command="{Binding LoadWorkoutsCommand}"/>
+    </ContentPage.Behaviors>
+
+    <VerticalStackLayout
+        Padding="10">
+
+        <Entry
+           Placeholder="Title"
+           Text="{Binding Title}"/>
+        <Entry 
+            Placeholder="Description"
+            Text="{Binding Description}"/>
+
+        <CollectionView
+            ItemsSource="{Binding Workouts}"
+            EmptyView="No workout created">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Workout">
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="0"
+                            Text="{Binding Name}"
+                            FontAttributes="Bold" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button 
+            Text="Add workout"
+            Command="{Binding GoToAddWorkoutCommand}"/>
+        
+        <Button 
+            Text="Save"
+            Command="{Binding SaveCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
