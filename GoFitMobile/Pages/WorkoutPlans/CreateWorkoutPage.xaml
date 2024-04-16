@@ -2,16 +2,76 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:GoFitMobile.ViewModel"
+             xmlns:models="clr-namespace:GoFitMobile.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="GoFitMobile.Pages.WorkoutPlans.CreateWorkoutPage"
              x:DataType="viewmodel:CreateWorkoutViewModel"
              Title="New Workout">
-    <VerticalStackLayout>
-        <Entry
-           Placeholder="Title"
-           Text="{Binding Name}"/>
 
-        <Button 
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+        EventName="Appearing"
+        Command="{Binding LoadNewWorkoutExercisesCommand}"/>
+    </ContentPage.Behaviors>
+
+    <Grid
+        Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
+            <RowDefinition />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        
+        <Entry
+            Grid.Row="0"
+            Placeholder="Title"
+            Text="{Binding Name}"/>
+
+        <Button
+            Grid.Row="1"
+            Text="Add exercise"
+            Command="{Binding GoToAddExerciseCommand}"/>
+
+        <CollectionView
+            Grid.Row="2"
+            ItemsSource="{Binding WorkoutExercises}"
+            EmptyView="No exercise added">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:WorkoutExercise">
+                    <Grid 
+                        RowSpacing="5"
+                        Padding="5">
+                        <Frame
+                            BorderColor="Gray"
+                            CornerRadius="5"
+                            Padding="8">
+                            <StackLayout>
+                                <Label
+                                    Grid.Row="0"
+                                    Text="{Binding Name}"
+                                    FontAttributes="Bold" />
+
+                                <Label
+                                    Grid.Row="1"
+                                    FontSize="12">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Sets.Count}" />
+                                            <Span Text=" Sets" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button
+            Grid.Row="3"
             Text="Save"
             Command="{Binding SaveCommand}"/>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

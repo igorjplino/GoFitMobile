@@ -2,13 +2,69 @@
 using CommunityToolkit.Mvvm.Input;
 using GoFitMobile.Models;
 using GoFitMobile.Pages.WorkoutPlans;
+using System.Collections.ObjectModel;
 
 namespace GoFitMobile.ViewModel;
 
-public partial class CreateWorkoutViewModel : ObservableObject
+public partial class CreateWorkoutViewModel : ObservableObject, IQueryAttributable
 {
     [ObservableProperty]
     string name;
+
+    [ObservableProperty]
+    ObservableCollection<WorkoutExercise> newWorkoutExercises;
+
+    [ObservableProperty]
+    ObservableCollection<WorkoutExercise> workoutExercises;
+
+    public CreateWorkoutViewModel()
+    {
+        WorkoutExercises = new();
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue("NewWorkoutExercises", out object? value) && value is List<WorkoutExercise> exercises)
+        {
+            foreach (var exercise in exercises)
+            {
+                WorkoutExercises.Add(exercise);
+            }
+        }
+    }
+
+    [RelayCommand]
+    async Task GoToAddExercise()
+    {
+        try
+        {
+            List<Guid> alreadyAddedExercisesId = WorkoutExercises.Select(x => x.ExerciseId).ToList();
+
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "AlreadyAddedExercisesId", alreadyAddedExercisesId }
+            };
+
+            await Shell.Current.GoToAsync($"{nameof(AddExerciseToWorkoutPage)}", navigationParameter);
+        }
+        catch (Exception ex)
+        {
+
+        }
+        
+    }
+
+    [RelayCommand]
+    void LoadNewWorkoutExercises()
+    {
+        //if (NewWorkoutExercises is not null)
+        //{
+        //    foreach (var exercise in NewWorkoutExercises)
+        //    {
+        //        WorkoutExercises.Add(exercise);
+        //    }
+        //}
+    }
 
     [RelayCommand]
     async Task Save()
@@ -17,22 +73,7 @@ public partial class CreateWorkoutViewModel : ObservableObject
         {
             Name = Name,
             Description = "Testeeee",
-            Order = 0,
-            WorkoutExercises = new List<WorkoutExercise>
-            {
-                new WorkoutExercise
-                {
-                    ExerciseId = new Guid("17e5b542-e5a3-4f50-8a67-0ee42330ff0c"),
-                    Order = 0,
-                    Sets = new List<WorkoutSet>
-                    {
-                        new WorkoutSet
-                        {
-                            Order = 0
-                        }
-                    }
-                }
-            }
+            WorkoutExercises = WorkoutExercises.ToList()
         };
 
         var navigationParameter = new Dictionary<string, object>

@@ -1,4 +1,6 @@
-﻿namespace GoFitMobile.Data;
+﻿using System.Net.Http;
+
+namespace GoFitMobile.Data;
 
 public class HttpsClientHandler
 {
@@ -15,16 +17,18 @@ public class HttpsClientHandler
         if (client is null)
         {
 #if DEBUG
-            client = new HttpClient(GetPlatformMessageHandler());
+            client = GetPlatformMessageHandler();
 #else
             client = new HttpClient();
 #endif
+
+            client.BaseAddress = new Uri(_baseUrl);
         }
 
         return client;
     }
 
-    private HttpMessageHandler GetPlatformMessageHandler()
+    private HttpClient GetPlatformMessageHandler()
     {
 #if ANDROID
         var handler = new Xamarin.Android.Net.AndroidMessageHandler();
@@ -34,15 +38,18 @@ public class HttpsClientHandler
                 return true;
             return errors == System.Net.Security.SslPolicyErrors.None;
         };
-        return handler;
+        return new HttpClient(handler);
 #elif IOS
         var handler = new NSUrlSessionHandler
         {
             TrustOverrideForUrl = IsHttpsLocalhost
         };
-        return handler;
+        return new HttpClient(handler);
+#elif WINDOWS
+        return new HttpClient();
 #else
-        throw new PlatformNotSupportedException("Only Android and iOS supported.");
+        throw new PlatformNotSupportedException("Not supported platform.");
+        
 #endif
     }
 

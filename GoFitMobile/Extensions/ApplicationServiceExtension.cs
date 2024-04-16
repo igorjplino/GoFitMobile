@@ -16,7 +16,12 @@ public static class ApplicationServiceExtension
 
         services.AddSingleton(_ =>
         {
-            var handler = new HttpsClientHandler(configuration.GetSection("AppSettings")["GoFitApiUrl"]);
+#if WINDOWS
+            var baseUrl = configuration.GetSection("AppSettings")["GoFitApiUrlWindows"];
+#else
+            var baseUrl = configuration.GetSection("AppSettings")["GoFitApiUrl"];
+#endif
+            var handler = new HttpsClientHandler(baseUrl);
 
             return handler.GetHttpClient();
         });
@@ -33,7 +38,11 @@ public static class ApplicationServiceExtension
         services.AddScoped<CreateWorkoutPage>();
         services.AddScoped<CreateWorkoutViewModel>();
 
+        services.AddScoped<AddExerciseToWorkoutPage>();
+        services.AddScoped<AddExerciseToWorkoutViewModel>();
+
         services.AddScoped<IWorkoutService, WorkoutService>();
+        services.AddScoped<IExerciseService, ExerciseService>();
 
         return services;
     }

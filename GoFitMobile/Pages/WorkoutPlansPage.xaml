@@ -15,55 +15,47 @@
     </ContentPage.Behaviors>
 
     <Grid 
-        RowDefinitions="50, Auto"
-        ColumnDefinitions=".50*, .50*"
+        RowDefinitions="*, Auto"
         Padding="10"
         ColumnSpacing="10"
         RowSpacing="10">
-
-        <!--<ImageButton
-            Grid.Row="0"
-            Grid.Column="1"
-            HorizontalOptions="End"
-            Source="add_icon.png" 
-            BackgroundColor="Transparent"
-            Command="{Binding GoToCreateWorkoutPlanCommand}"/>-->
         
         <CollectionView
-            Grid.Row="0"
-            Grid.ColumnSpan="2"
             ItemsSource="{Binding WorkoutPlans}"
+            SelectionMode="None"
             EmptyView="No plans created">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:WorkoutPlan">
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <Grid
+                        RowSpacing="5"
+                        Padding="5">
 
-                        <Label
-                            Grid.Column="1"
-                            Text="{Binding Title}"
-                            FontAttributes="Bold" />
-                        <Label Grid.Row="1"
-                            Grid.Column="1"
-                            Text="{Binding Description}"
-                            FontAttributes="Italic"
-                            VerticalOptions="End" />
+                        <Frame
+                            BorderColor="Gray"
+                            CornerRadius="5"
+                            Padding="8">
+                            <StackLayout>
+                                <Label
+                                    Text="{Binding Title}"
+                                    FontAttributes="Bold"
+                                    FontSize="16"/>
+                                
+                                <Label 
+                                    Grid.Row="1"
+                                    Text="{Binding Description}"
+                                    FontAttributes="Italic"/>
+                            </StackLayout>
+                        </Frame>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Grid.Row="1"
-                Grid.ColumnSpan="2"
-                Text="Add new plan"
-                Command="{Binding GoToCreateWorkoutPlanCommand}" />
+        <Button 
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Text="Add new plan"
+            Command="{Binding GoToCreateWorkoutPlanCommand}" />
     </Grid>
 
     <!--<VerticalStackLayout

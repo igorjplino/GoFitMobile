@@ -25,7 +25,14 @@ public partial class WorkoutPlanViewModel : ObservableObject
     {
         var id = new Guid("d2d86d97-3f2c-4eb9-b979-c1937b212412");
 
-        WorkoutPlans = new ObservableCollection<WorkoutPlan>(await _workoutService.ListWorkoutPlansByAthletIdAsync(id));
+        var workoutPlans = await _workoutService.ListWorkoutPlansByAthletIdAsync(id);
+
+        WorkoutPlans = new ObservableCollection<WorkoutPlan>(workoutPlans);
+
+        //foreach (var item in workoutPlans)
+        //{
+        //    WorkoutPlans.Add(item);
+        //}
     }
 
     [RelayCommand]

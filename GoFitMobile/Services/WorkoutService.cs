@@ -9,7 +9,8 @@ public class WorkoutService : BaseService, IWorkoutService
 {
     private readonly AppSettings _appSettings;
     private readonly HttpClient _httpClient;
-    private readonly Uri _uri;
+
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
 
     public WorkoutService(
         IOptions<AppSettings> appSettings,
@@ -18,14 +19,17 @@ public class WorkoutService : BaseService, IWorkoutService
         _appSettings = appSettings.Value;
         _httpClient = httpClient;
         
-        _uri = new Uri(_appSettings.GoFitApiUrl);
+        _jsonSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
     }
 
     public async Task CreateNewWorkoutPlanAsync(WorkoutPlan workoutPlan)
     {
         try
         {
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_uri + "WorkoutPlan", workoutPlan);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("WorkoutPlan", workoutPlan);
         }
         catch (Exception ex)
         {
@@ -37,12 +41,15 @@ public class WorkoutService : BaseService, IWorkoutService
     {
         try
         {
-            HttpResponseMessage response = await _httpClient.GetAsync(_uri + $"WorkoutPlan/Athlete/{id}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"WorkoutPlan/Athlete/{id}");
 
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<List<WorkoutPlan>>(content) ?? [];
+
+                var workoutPlans = JsonSerializer.Deserialize<List<WorkoutPlan>>(content, _jsonSerializerOptions) ?? [];
+                
+                return workoutPlans;
             }
         }
         catch (Exception ex)

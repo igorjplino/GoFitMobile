@@ -14,17 +14,32 @@
             Command="{Binding LoadWorkoutsCommand}"/>
     </ContentPage.Behaviors>
 
-    <VerticalStackLayout
+    <Grid
         Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
+            <RowDefinition />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
 
         <Entry
-           Placeholder="Title"
-           Text="{Binding Title}"/>
+            Grid.Row="0"
+            Placeholder="Title"
+            Text="{Binding Title}"/>
         <Entry 
+            Grid.Row="1"
             Placeholder="Description"
             Text="{Binding Description}"/>
 
+        <Button 
+            Grid.Row="2"
+            Text="Add workout"
+            Command="{Binding GoToAddWorkoutCommand}"/>        
+        
         <CollectionView
+            Grid.Row="3"
             ItemsSource="{Binding Workouts}"
             EmptyView="No workout created">
             <CollectionView.ItemTemplate>
@@ -48,12 +63,9 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button 
-            Text="Add workout"
-            Command="{Binding GoToAddWorkoutCommand}"/>
-        
-        <Button 
+        <Button
+            Grid.Row="4"
             Text="Save"
             Command="{Binding SaveCommand}"/>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

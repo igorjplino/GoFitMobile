@@ -2,12 +2,12 @@
 using CommunityToolkit.Mvvm.Input;
 using GoFitMobile.Interfaces;
 using GoFitMobile.Models;
+using GoFitMobile.Pages;
 using GoFitMobile.Pages.WorkoutPlans;
 using System.Collections.ObjectModel;
 
 namespace GoFitMobile.ViewModel;
 
-//[QueryProperty(nameof(Workout), "NewWorkout")]
 [QueryProperty("NewWorkout", "NewWorkout")]
 public partial class CreateWorkoutPlanViewModel : ObservableObject
 {
@@ -59,5 +59,7 @@ public partial class CreateWorkoutPlanViewModel : ObservableObject
         };
 
         await _workoutService.CreateNewWorkoutPlanAsync(workoutPlan);
+
+        await Shell.Current.GoToAsync(nameof(WorkoutPlansPage));
     }
 }
