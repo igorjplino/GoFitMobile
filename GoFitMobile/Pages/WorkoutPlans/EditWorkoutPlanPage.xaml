@@ -4,9 +4,9 @@
              xmlns:viewmodel="clr-namespace:GoFitMobile.ViewModel"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:GoFitMobile.Models"
-             x:Class="GoFitMobile.Pages.WorkoutPlans.CreateWorkoutPlanPage"
-             x:DataType="viewmodel:CreateWorkoutPlanViewModel"
-             Title="Create new Workout plan">
+             x:Class="GoFitMobile.Pages.WorkoutPlans.EditWorkoutPlanPage"
+             x:DataType="viewmodel:EditWorkoutPlanViewModel"
+             Title="Edit">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
@@ -14,32 +14,24 @@
             Command="{Binding LoadWorkoutsCommand}"/>
     </ContentPage.Behaviors>
 
-    <Grid
-        Padding="10">
+    <Grid Padding="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="50" />
-            <RowDefinition Height="40" />
             <RowDefinition />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-
         <Entry
             Grid.Row="0"
             Placeholder="Title"
-            Text="{Binding Title}"/>
+            Text="{Binding WorkoutPlan.Title}"/>
         <Entry 
             Grid.Row="1"
             Placeholder="Description"
-            Text="{Binding Description}"/>
+            Text="{Binding WorkoutPlan.Description}"/>
 
-        <Button 
-            Grid.Row="2"
-            Text="Add workout"
-            Command="{Binding GoToAddWorkoutCommand}"/>        
-        
         <CollectionView
-            Grid.Row="3"
+            Grid.Row="2"
             ItemsSource="{Binding Workouts}"
             EmptyView="No workout created">
             <CollectionView.ItemTemplate>
@@ -47,12 +39,7 @@
                     <Grid Padding="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
 
                         <Label
                             Grid.Column="0"
@@ -64,7 +51,7 @@
         </CollectionView>
 
         <Button
-            Grid.Row="4"
+            Grid.Row="3"
             Text="Save"
             Command="{Binding SaveCommand}" />
     </Grid>

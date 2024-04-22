@@ -8,14 +8,14 @@ using System.Collections.ObjectModel;
 namespace GoFitMobile.ViewModel;
 public partial class WorkoutPlanViewModel : ObservableObject
 {
-    private readonly IWorkoutService _workoutService;
+    private readonly IWorkoutPlanService _workoutPlanService;
 
     [ObservableProperty]
     ObservableCollection<WorkoutPlan> workoutPlans;
 
-    public WorkoutPlanViewModel(IWorkoutService workoutService)
+    public WorkoutPlanViewModel(IWorkoutPlanService workoutPlanService)
     {
-        _workoutService = workoutService;
+        _workoutPlanService = workoutPlanService;
 
         workoutPlans = [];
     }
@@ -25,19 +25,25 @@ public partial class WorkoutPlanViewModel : ObservableObject
     {
         var id = new Guid("d2d86d97-3f2c-4eb9-b979-c1937b212412");
 
-        var workoutPlans = await _workoutService.ListWorkoutPlansByAthletIdAsync(id);
+        var workoutPlans = await _workoutPlanService.ListWorkoutPlansByAthletIdAsync(id);
 
         WorkoutPlans = new ObservableCollection<WorkoutPlan>(workoutPlans);
-
-        //foreach (var item in workoutPlans)
-        //{
-        //    WorkoutPlans.Add(item);
-        //}
     }
 
     [RelayCommand]
     async Task GoToCreateWorkoutPlan()
     {
         await Shell.Current.GoToAsync(nameof(CreateWorkoutPlanPage));
+    }
+
+    [RelayCommand]
+    async Task GoToEditWorkoutPlan(WorkoutPlan workoutPlan)
+    {
+        var navigationParameter = new Dictionary<string, object>
+        {
+            { "WorkoutPlan", workoutPlan }
+        };
+
+        await Shell.Current.GoToAsync(nameof(EditWorkoutPlanPage), navigationParameter);
     }
 }

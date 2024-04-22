@@ -11,7 +11,7 @@ namespace GoFitMobile.ViewModel;
 [QueryProperty("NewWorkout", "NewWorkout")]
 public partial class CreateWorkoutPlanViewModel : ObservableObject
 {
-    readonly IWorkoutService _workoutService;
+    readonly IWorkoutPlanService _workoutPlanService;
 
     [ObservableProperty]
     string title;
@@ -25,9 +25,9 @@ public partial class CreateWorkoutPlanViewModel : ObservableObject
     [ObservableProperty]
     ObservableCollection<Workout> workouts;
 
-    public CreateWorkoutPlanViewModel(IWorkoutService workoutService)
+    public CreateWorkoutPlanViewModel(IWorkoutPlanService workoutPlanService)
     {
-        _workoutService = workoutService;
+        _workoutPlanService = workoutPlanService;
 
         Workouts = new ObservableCollection<Workout>();
     }
@@ -58,7 +58,7 @@ public partial class CreateWorkoutPlanViewModel : ObservableObject
             Workouts = Workouts.ToList()
         };
 
-        await _workoutService.CreateNewWorkoutPlanAsync(workoutPlan);
+        await _workoutPlanService.CreateNewWorkoutPlanAsync(workoutPlan);
 
         await Shell.Current.GoToAsync(nameof(WorkoutPlansPage));
     }

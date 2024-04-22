@@ -109,6 +109,9 @@
 	  <MauiXaml Update="Pages\WorkoutPlans\CreateWorkoutPlanPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\WorkoutPlans\EditWorkoutPlanPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
